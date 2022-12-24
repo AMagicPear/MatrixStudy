@@ -1,4 +1,4 @@
-# MartixStudy
+# MatrixStudy
 C语言各种矩阵运算
 **这是一个用C研究矩阵运算的项目**
 
