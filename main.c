@@ -5,6 +5,9 @@ void F_RowSimplest();
 
 void F_Multy();
 
+int Inverse();
+
+#define NEGATIVE_INPUT printf("The rows and columns can't be negative!\n");return;
 //列必须是全局变量！否则函数会出错。
 int ColForFunction;
 typedef struct Matrix {
@@ -13,8 +16,6 @@ typedef struct Matrix {
 } matrix;
 matrix matrix0, matrix1;
 matrix matrixResult;
-
-void SimplificationModeSelection(double array[][ColForFunction], int r, int c, int mode);
 
 void PrintArray(double array[][ColForFunction], int r, int c, char *string);
 
@@ -42,6 +43,7 @@ int main() {
         short mode;
         printf("1. RowSimplest\n");
         printf("2. Multiply two matrix\n");
+        printf("3. Inverse a matrix\n");
         re_select:
         printf("Select Mode:");
         scanf_s("%d", &mode);
@@ -52,8 +54,11 @@ int main() {
             case 2:
                 F_Multy();
                 break;
+            case 3:
+                Inverse();
+                break;
             default:
-                printf("Please enter 1 or 2!\n");
+                printf("Please enter 1~3!\n");
                 goto re_select;
         }
     }
@@ -67,11 +72,17 @@ int main() {
 
 //矩阵乘法程序
 void F_Multy() {
-    printf("First matrix:");
+    printf("The rows and columns of the First matrix:");
     scanf_s("%d%d", &matrix0.Row, &matrix0.Col);
-    printf("Second matrix:");
+    if (!(matrix0.Row > 0 && matrix0.Col > 0)) {
+        NEGATIVE_INPUT
+    }
+    printf("The rows and columns of the Second matrix:");
     scanf_s("%d%d", &matrix1.Row, &matrix1.Col);
-    if (matrix0.Col != matrix1.Row) printf("Wrong Input!");
+    if (!(matrix0.Row > 0 && matrix0.Col > 0)) {
+        NEGATIVE_INPUT
+    }
+    if (matrix0.Col != matrix1.Row) printf("Wrong Input! ");
     else {
         double array0[matrix0.Row][matrix0.Col];
         double array1[matrix1.Row][matrix1.Col];
@@ -79,9 +90,9 @@ void F_Multy() {
         matrixResult.Col = matrix1.Col;
         double Result[matrixResult.Row][matrixResult.Col];
         ColForFunction = matrixResult.Col;
-        printf("Input First matrix:\n");
+        printf("Input Left matrix:\n");
         InputArray(array0, matrix0.Row, matrix0.Col);
-        printf("Input Second matrix:\n");
+        printf("Input Right matrix:\n");
         InputArray(array1, matrix1.Row, matrix1.Col);
         Multiplication(array0, array1, Result);
         PrintArray(Result, matrixResult.Row, matrixResult.Col, "Product");
@@ -92,6 +103,9 @@ void F_Multy() {
 void F_RowSimplest() {
     printf("Please enter the number of rows and columns of the matrix:\n");
     scanf_s("%d%d", &matrix0.Row, &matrix0.Col);
+    if (!(matrix0.Row > 0 && matrix0.Col > 0)) {
+        NEGATIVE_INPUT
+    }
     ColForFunction = matrix0.Col;//这个必须要有，否则下面函数会出错
     //以用户输入的行列数生成一个二维数组arrayInput以存放矩阵
     double arrayInput[matrix0.Row][matrix0.Col];
@@ -192,20 +206,6 @@ void RowLadder(double a[][ColForFunction], int r, int c) {
             }
         }
         SwapLines(a, c, zero_min, k);
-    }
-}
-
-//根据mode的数值选择采用何种方式处理矩阵
-void SimplificationModeSelection(double array[][ColForFunction], int r, int c, int mode) {
-    switch (mode) {
-        case 1:
-            RowLadder(array, r, c);
-            break;
-        case 2:
-            RowSimplest(array, r, c);
-            break;
-        default:
-            printf("No such mode! Please select the listed above!\n");
     }
 }
 
