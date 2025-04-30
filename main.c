@@ -46,7 +46,7 @@ int main() {
         printf("3. Inverse a matrix\n");
         re_select:
         printf("Select Mode:");
-        scanf_s("%d", &mode);
+        scanf("%hd", &mode);
         switch (mode) {
             case 1:
                 F_RowSimplest();
@@ -73,12 +73,12 @@ int main() {
 //矩阵乘法程序
 void F_Multy() {
     printf("The rows and columns of the First matrix:");
-    scanf_s("%d%d", &matrix0.Row, &matrix0.Col);
+    scanf("%d%d", &matrix0.Row, &matrix0.Col);
     if (!(matrix0.Row > 0 && matrix0.Col > 0)) {
         NEGATIVE_INPUT
     }
     printf("The rows and columns of the Second matrix:");
-    scanf_s("%d%d", &matrix1.Row, &matrix1.Col);
+    scanf("%d%d", &matrix1.Row, &matrix1.Col);
     if (!(matrix0.Row > 0 && matrix0.Col > 0)) {
         NEGATIVE_INPUT
     }
@@ -102,7 +102,7 @@ void F_Multy() {
 //行最简程序
 void F_RowSimplest() {
     printf("Please enter the number of rows and columns of the matrix:\n");
-    scanf_s("%d%d", &matrix0.Row, &matrix0.Col);
+    scanf("%d%d", &matrix0.Row, &matrix0.Col);
     if (!(matrix0.Row > 0 && matrix0.Col > 0)) {
         NEGATIVE_INPUT
     }
@@ -235,7 +235,7 @@ void InputArray(double array[][ColForFunction], int r, int c) {
     int i, j;
     for (i = 0; i < r; ++i)
         for (j = 0; j < c; ++j)
-            scanf_s("%lf", &array[i][j]);
+            scanf("%lf", &array[i][j]);
 }
 
 //倍加
